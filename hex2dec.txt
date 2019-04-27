@@ -27,7 +27,7 @@
 {{ else if or (eq $v 70) (eq $v 102 ) }} {{ $a = "15" }}
 {{ else }}
 {{ $e = 1 }}
-error, inproper hex
+Error: Argument needs to be colour in RGB hex.
 {{ end }}
 {{ if not ( eq $kk 0) }} {{ $kk = slice ( toString $kk ) 1 }} {{ end }}
 {{ $z = joinStr "" $z "+" $a "*16^" $kk }}
@@ -52,11 +52,12 @@ error, inproper hex
 {{ $result = joinStr "" $result $a }}
 {{ end }}
 {{ end }}
-{{ joinStr "" "Hex: " $h " in Decimal: " $result }}
+{{ $embed := cembed "title" "Colour Preview" "description" (joinStr "" "Colour hex: #" $h "\nColour decimal: " $result) "color" (toInt $result) }}
+{{ sendMessage nil $embed}}
 {{ end }}
 {{ else }}
-error, argument needs to be colour in RGB hex and in length of 6 characters
+Error: Argument needs to be colour in RGB hex.
 {{ end }}
 {{ else }}
-needs RGB hex as argument eg 89aa00
+Wrong use of command.
 {{ end }}
